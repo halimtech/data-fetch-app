@@ -1,23 +1,23 @@
+import { Button } from '@chakra-ui/react';
 import Link from 'next/link'
 
 function Index({ stars }) {
+
   return (
     <div>
-      <p>Next.js has {stars} ⭐️</p>
-      <Link href="/preact-stars">
-        <a>How about preact?</a>
-      </Link>
+      <Button marginLeft={10} marginTop={30}><Link href="/indexing">INDEX</Link></Button>
+      <Button marginLeft={10} marginTop={30}><Link href="/clustering">SKIP</Link></Button>
     </div>
   )
 }
 
-export async function getStaticProps() {
-  const res = await fetch('https://api.github.com/repos/vercel/next.js')
+export async function getServerSideProps() {
+  const res = await fetch('http://localhost:8080/search?q=player&x=2')
   const json = await res.json()
 
   return {
     props: {
-      stars: json.stargazers_count,
+      stars: json,
     },
   }
 }
